@@ -1,7 +1,8 @@
 import { EmbedBuilder } from '@discordjs/builders';
 import { ActivityType, Client, GatewayIntentBits } from 'discord.js'
 import dotenv from 'dotenv';
-import { AltCheckCommand, AvatarCommand, BlacklistCommand, InfoCommand, LofiCommand, NoaddCheckCommand, PollCommand, Tier1RoleCommand, Tier2RoleCommand, TimeoutCommand, UnTimeoutCommand, ValidationBlacklistCommand } from './commands/Commands';
+import mysql from 'mysql2'
+import { AddNoteCommand, AltCheckCommand, AvatarCommand, BlacklistCommand, DelNoteCommand, InfoCommand, LofiCommand, NoaddCheckCommand, NotesCommand, PollCommand, Tier1RoleCommand, Tier2RoleCommand, TimeoutCommand, UnTimeoutCommand, ValidationBlacklistCommand } from './commands/Commands';
 
 dotenv.config();
 
@@ -12,6 +13,17 @@ process.on('uncaughtException', (err) => {
 process.on('unhandledRejection', (err) => {
   console.error(err);
 });
+
+export const connection = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  port: parseInt(process.env.DB_PORT as string),
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+})
 
 const client = new Client({
   intents: [
@@ -87,6 +99,15 @@ client.on('messageCreate', (msg) => {
     }
     case 'poll':
       PollCommand(msg, args, client)
+      break;
+    case 'addnote':
+      AddNoteCommand(msg, args, client)
+      break;
+    case 'notes':
+      NotesCommand(msg, args, client)
+      break;
+    case 'delnote':
+      DelNoteCommand(msg, args, client)
       break;
   }
 })

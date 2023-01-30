@@ -10,6 +10,9 @@ import { NoaddCheckCommand } from "./NoaddCheck";
 import { TimeoutCommand } from "./Timeout";
 import { UnTimeoutCommand } from "./UnTimeout";
 import { PollCommand } from "./Poll";
+import { AddNoteCommand } from "./AddNote";
+import { NotesCommand } from "./Notes";
+import { DelNoteCommand } from "./DelNote";
 
 export {
   Tier1RoleCommand,
@@ -23,5 +26,8 @@ export {
   NoaddCheckCommand,
   TimeoutCommand,
   UnTimeoutCommand,
-  PollCommand
+  PollCommand,
+  AddNoteCommand,
+  NotesCommand,
+  DelNoteCommand
 }
