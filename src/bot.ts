@@ -58,8 +58,7 @@ client.on('messageCreate', (msg) => {
   const channel = msg.guild?.channels.cache.find(channel => channel.id === "672895397282316360")
 
   if (msg.member?.roles.cache.has(role!.id) && (msg.channel === channel)) {
-    msg.delete().then(() => {
-      msg.channel.send(`${msg.member}, You are blacklisted. If you think there is a problem, please make a ticket in <#1061327943483281428>`)
+      msg.channel.send(`${msg.member}, You are blacklisted. Please make a ticket in <#1061327943483281428> if you think this was a false blacklist.`)
     })
   }
 
