@@ -54,7 +54,13 @@ client.on('ready', () => {
 });
 
 client.on('messageCreate', (msg) => {
-  if (!msg.content.startsWith(prefix)) return;
+  const role = msg.guild?.roles.cache.find(role => role.id === "823597873731469383")
+  const channel = msg.guild?.channels.cache.find(channel => channel.id === "672895397282316360")
+
+  if (msg.member?.roles.cache.has(role!.id) && (msg.channel === channel)) {
+      msg.channel.send(`${msg.member}, You are blacklisted. Please make a ticket in <#1061327943483281428> if you think this was a false blacklist.`)
+    })
+  }
 
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift()?.toLowerCase();
