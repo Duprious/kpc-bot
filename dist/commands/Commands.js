@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PollCommand = exports.UnTimeoutCommand = exports.TimeoutCommand = exports.NoaddCheckCommand = exports.AvatarCommand = exports.ValidationBlacklistCommand = exports.BlacklistCommand = exports.LofiCommand = exports.InfoCommand = exports.AltCheckCommand = exports.Tier2RoleCommand = exports.Tier1RoleCommand = void 0;
+exports.DelNoteCommand = exports.NotesCommand = exports.AddNoteCommand = exports.PollCommand = exports.UnTimeoutCommand = exports.TimeoutCommand = exports.NoaddCheckCommand = exports.AvatarCommand = exports.ValidationBlacklistCommand = exports.BlacklistCommand = exports.LofiCommand = exports.InfoCommand = exports.AltCheckCommand = exports.Tier2RoleCommand = exports.Tier1RoleCommand = void 0;
 const Tier1Role_1 = require("./Tier1Role");
 Object.defineProperty(exports, "Tier1RoleCommand", { enumerable: true, get: function () { return Tier1Role_1.Tier1RoleCommand; } });
 const Tier2Role_1 = require("./Tier2Role");
@@ -25,3 +25,9 @@ const UnTimeout_1 = require("./UnTimeout");
 Object.defineProperty(exports, "UnTimeoutCommand", { enumerable: true, get: function () { return UnTimeout_1.UnTimeoutCommand; } });
 const Poll_1 = require("./Poll");
 Object.defineProperty(exports, "PollCommand", { enumerable: true, get: function () { return Poll_1.PollCommand; } });
+const AddNote_1 = require("./AddNote");
+Object.defineProperty(exports, "AddNoteCommand", { enumerable: true, get: function () { return AddNote_1.AddNoteCommand; } });
+const Notes_1 = require("./Notes");
+Object.defineProperty(exports, "NotesCommand", { enumerable: true, get: function () { return Notes_1.NotesCommand; } });
+const DelNote_1 = require("./DelNote");
+Object.defineProperty(exports, "DelNoteCommand", { enumerable: true, get: function () { return DelNote_1.DelNoteCommand; } });

@@ -1,9 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.connection = void 0;
 const tslib_1 = require("tslib");
 const builders_1 = require("@discordjs/builders");
 const discord_js_1 = require("discord.js");
 const dotenv_1 = tslib_1.__importDefault(require("dotenv"));
+const mysql2_1 = tslib_1.__importDefault(require("mysql2"));
 const Commands_1 = require("./commands/Commands");
 dotenv_1.default.config();
 process.on('uncaughtException', (err) => {
@@ -11,6 +13,16 @@ process.on('uncaughtException', (err) => {
 });
 process.on('unhandledRejection', (err) => {
     console.error(err);
+});
+exports.connection = mysql2_1.default.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    port: parseInt(process.env.DB_PORT),
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 const client = new discord_js_1.Client({
     intents: [
@@ -82,6 +94,15 @@ client.on('messageCreate', (msg) => {
         }
         case 'poll':
             (0, Commands_1.PollCommand)(msg, args, client);
+            break;
+        case 'addnote':
+            (0, Commands_1.AddNoteCommand)(msg, args, client);
+            break;
+        case 'notes':
+            (0, Commands_1.NotesCommand)(msg, args, client);
+            break;
+        case 'delnote':
+            (0, Commands_1.DelNoteCommand)(msg, args, client);
             break;
     }
 });
