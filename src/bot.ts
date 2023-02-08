@@ -2,7 +2,7 @@ import { EmbedBuilder } from '@discordjs/builders';
 import { ActivityType, Client, GatewayIntentBits } from 'discord.js'
 import dotenv from 'dotenv';
 import mysql from 'mysql2'
-import { AddNoteCommand, AltCheckCommand, AvatarCommand, BlacklistCommand, DelNoteCommand, InfoCommand, LofiCommand, NoaddCheckCommand, NotesCommand, PollCommand, Tier1RoleCommand, Tier2RoleCommand, TimeoutCommand, UnTimeoutCommand, ValidationBlacklistCommand } from './commands/Commands';
+import { BanAmount, AddNoteCommand, AltCheckCommand, AvatarCommand, BlacklistCommand, DelNoteCommand, InfoCommand, LofiCommand, NoaddCheckCommand, NotesCommand, PollCommand, Tier1RoleCommand, Tier2RoleCommand, TimeoutCommand, UnTimeoutCommand, ValidationBlacklistCommand } from './commands/Commands';
 
 dotenv.config();
 
@@ -115,6 +115,9 @@ client.on('messageCreate', (msg) => {
       break;
     case 'delnote':
       DelNoteCommand(msg, args, client)
+      break;
+    case 'banamount':
+      BanAmount(msg, args, client)
       break;
   }
 })
