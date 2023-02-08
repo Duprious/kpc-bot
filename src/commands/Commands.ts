@@ -13,6 +13,7 @@ import { PollCommand } from "./Poll";
 import { AddNoteCommand } from "./AddNote";
 import { NotesCommand } from "./Notes";
 import { DelNoteCommand } from "./DelNote";
+import { BanAmount } from "./banamount";
 
 export {
   Tier1RoleCommand,
@@ -29,5 +30,6 @@ export {
   PollCommand,
   AddNoteCommand,
   NotesCommand,
-  DelNoteCommand
+  DelNoteCommand,
+  BanAmount
 }
