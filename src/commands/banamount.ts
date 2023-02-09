@@ -1,5 +1,5 @@
-import { Client, EmbedBuilder, GuildTextBasedChannel, Message, TextChannel } from "discord.js";
-import { addYears } from 'date-fns';
+import { Client, EmbedBuilder, Message, TextChannel } from "discord.js";
+import { addDays, addYears, differenceInHours, differenceInDays } from "date-fns"
 
 export const BanAmount = async (msg: Message, args: string[], client: Client) => {
 
@@ -23,21 +23,20 @@ export const BanAmount = async (msg: Message, args: string[], client: Client) =>
                                 let year = parseInt(messages.first()?.content || '')
 
 
-                                const bandate2= new Date(`${month}/${day}/${year}`).getTime()
-                                const bandate:any = addYears(bandate2, 1)
-                                const differenceintime = bandate - todaytime;
+                                    const bandate2= new Date(`${month}, ${day}, ${year}`)
+                                    const bandate = addYears(bandate2, 1)
+                                    const timetobanindays = differenceInDays(bandate, todaytime)
+                                    const timetobaninhours= differenceInHours(bandate, todaytime)
 
-                                const differenceinhours = Math.round(differenceintime / hour)
-                                const differenceindays = Math.round(differenceintime / day2)
 
-                                const embed = new EmbedBuilder()
-                                    .setTitle('Done!')
-                                    .setColor('Green')
-                                    .setTimestamp()
-                                    .addFields(
-                                        { name: 'Difference in Days:', value: `${differenceindays}` },
-                                        { name: 'Difference in Hours: ', value: `${differenceinhours}` }
-                                    )
+                                    const embed = new EmbedBuilder()
+                                        .setTitle('Done!')
+                                        .setColor('Green')
+                                        .setTimestamp()
+                                        .addFields(
+                                            { name: 'Difference in Days:', value: `${timetobanindays}` },
+                                            { name: 'Difference in Hours: ', value: `${timetobaninhours}` }
+                                        )
 
                                     
                                 msg.channel.send({ embeds: [embed] })
@@ -58,17 +57,22 @@ export const BanAmount = async (msg: Message, args: string[], client: Client) =>
     const normal = async (msg: Message, args: string[], client: Client) => {
 
         const dateinargs = args.join(" ")
-        if(!dateinargs) return
+
+        const noargsembed = new EmbedBuilder()
+        .setTitle('Error!')
+        .setDescription('Please type the date in MM/DD/YYYY format. Usage: .banamount -a MM/DD/YYYY')
+        .setColor('Red')
+        .setTimestamp();
+
+
+        if(!dateinargs) return msg.channel.send({ embeds: [noargsembed] })
         
 
-        const dateinddmmyyyy2 = new Date(dateinargs).getTime()
-        const bandate:any = addYears(dateinddmmyyyy2, 1)
+        const dateinddmmyyyy2 = new Date(dateinargs)
+        const bandate = addYears(dateinddmmyyyy2, 1)
+        const timetobanindays2 = differenceInDays(bandate, todaytime)
+        const timetobaninhours2= differenceInHours(bandate, todaytime)
         
-        const differenceintime2 = bandate - todaytime
-        
-        const differenceinhours2 = Math.round(differenceintime2 / hour)
-        
-        const differenceindays = Math.round(differenceintime2 / day2)
         
 
         const embed = new EmbedBuilder()
@@ -76,8 +80,8 @@ export const BanAmount = async (msg: Message, args: string[], client: Client) =>
             .setColor('Green')
             .setTimestamp()
             .addFields(
-                { name: 'Difference in Days:', value: `${differenceindays}` },
-                { name: 'Difference in Hours: ', value: `${differenceinhours2}` }
+                { name: 'Difference in Days:', value: `${timetobanindays2}` },
+                { name: 'Difference in Hours: ', value: `${timetobaninhours2}` }
             )
 
 
