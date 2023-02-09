@@ -1,6 +1,11 @@
 import { Client, EmbedBuilder, GuildTextBasedChannel, Message, TextChannel } from "discord.js";
+import { addYears } from 'date-fns';
 
 export const BanAmount = async (msg: Message, args: string[], client: Client) => {
+
+    const minute = 1000 * 60;
+    const hour = minute * 60;
+    const day2 = hour * 24;
 
     const filter = (m: Message) => m.author.id === msg.author.id && !Number.isNaN(parseInt(m.content));
     const todaytime = Date.now()
@@ -17,11 +22,10 @@ export const BanAmount = async (msg: Message, args: string[], client: Client) =>
                             msg.channel.awaitMessages({ filter: filter, max: 1, time: 25000, errors: ["time"] }).then(messages => {
                                 let year = parseInt(messages.first()?.content || '')
 
-                                const minute = 1000 * 60;
-                                const hour = minute * 60;
-                                const day2 = hour * 24;
-                                const bandate = new Date(`${month}/${day}/${year}`).getTime()
-                                const differenceintime = todaytime - bandate;
+
+                                const bandate2= new Date(`${month}/${day}/${year}`).getTime()
+                                const bandate:any = addYears(bandate2, 1)
+                                const differenceintime = bandate - todaytime;
 
                                 const differenceinhours = Math.round(differenceintime / hour)
                                 const differenceindays = Math.round(differenceintime / day2)
@@ -56,17 +60,15 @@ export const BanAmount = async (msg: Message, args: string[], client: Client) =>
         const dateinargs = args.join(" ")
         if(!dateinargs) return
         
-        const minute3 = 1000 * 60;
-        const hour3 = minute3 * 60;
-        const day3 = hour3 * 24;
 
         const dateinddmmyyyy2 = new Date(dateinargs).getTime()
+        const bandate:any = addYears(dateinddmmyyyy2, 1)
         
-        const differenceintime2 = todaytime - dateinddmmyyyy2
+        const differenceintime2 = bandate - todaytime
         
-        const differenceinhours2 = Math.round(differenceintime2 / hour3)
+        const differenceinhours2 = Math.round(differenceintime2 / hour)
         
-        const differenceindays = Math.round(differenceintime2 / day3)
+        const differenceindays = Math.round(differenceintime2 / day2)
         
 
         const embed = new EmbedBuilder()
