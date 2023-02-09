@@ -2,7 +2,7 @@ import {Client, EmbedBuilder, GuildMember, Message, TextChannel } from "discord.
 
 export const NoaddCheckCommand = async (msg: Message, args: string[], client: Client) => {
 
-  if (!msg.member?.roles.cache.has('845388176348545075')) return;
+  //if (!msg.member?.roles.cache.has('845388176348545075')) return;
 
   const adminCommandChatsIDs = ["817030916235984936", "816806455054172171", "1059991932480270537"]
 
