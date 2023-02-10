@@ -1,5 +1,5 @@
 import { Client, EmbedBuilder, Message, TextChannel } from "discord.js";
-import { addDays, addYears, differenceInHours, differenceInDays } from "date-fns"
+import { addYears, differenceInHours, differenceInDays, parse } from "date-fns"
 
 export const BanAmount = async (msg: Message, args: string[], client: Client) => {
 
@@ -67,8 +67,8 @@ export const BanAmount = async (msg: Message, args: string[], client: Client) =>
 
         if(!dateinargs) return msg.channel.send({ embeds: [noargsembed] })
         
+        const dateinddmmyyyy2 = parse(dateinargs, 'dd/MM/yyyy', new Date())
 
-        const dateinddmmyyyy2 = new Date(dateinargs)
         const bandate = addYears(dateinddmmyyyy2, 1)
         const timetobanindays2 = differenceInDays(bandate, todaytime)
         const timetobaninhours2= differenceInHours(bandate, todaytime)
