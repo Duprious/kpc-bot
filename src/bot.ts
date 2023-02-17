@@ -2,7 +2,7 @@ import { EmbedBuilder } from '@discordjs/builders';
 import { ActivityType, Client, GatewayIntentBits } from 'discord.js'
 import dotenv from 'dotenv';
 import mysql from 'mysql2'
-import { AddNoteCommand, AltCheckCommand, AvatarCommand, BanAmount, BlacklistCommand, DelNoteCommand, InfoCommand, LofiCommand, NoaddCheckCommand, NotesCommand, PollCommand, Tier1RoleCommand, Tier2RoleCommand, TimeoutCommand, UnTimeoutCommand, ValidationBlacklistCommand } from './commands/Commands';
+import { AddNoteCommand, AltCheckCommand, AvatarCommand, BanAmount, BlacklistCommand, DelNoteCommand, InfoCommand, LofiCommand, NoaddCheckCommand, NotesCommand, PollCommand, TierManager, TimeoutCommand, UnTimeoutCommand, ValidationBlacklistCommand } from './commands/Commands';
 
 dotenv.config();
 
@@ -67,11 +67,8 @@ client.on('messageCreate', (msg) => {
   const command = args.shift()?.toLowerCase();
 
   switch (command) {
-    case 't1':
-      Tier1RoleCommand(msg, args);
-      break;
-    case 't2':
-      Tier2RoleCommand(msg, args);
+    case 't':
+      TierManager(msg, args, client)
       break;
     case 'altcheck':
       AltCheckCommand(msg, args, client);

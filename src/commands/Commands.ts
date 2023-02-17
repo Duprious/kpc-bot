@@ -1,5 +1,4 @@
-import { Tier1RoleCommand } from "./Tier1Role";
-import { Tier2RoleCommand } from "./Tier2Role";
+import { TierManager } from "./TierManager";
 import { AltCheckCommand } from "./AltCheck";
 import { InfoCommand } from "./InfoCommand";
 import { LofiCommand } from "./Lofi";
@@ -16,8 +15,7 @@ import { DelNoteCommand } from "./DelNote";
 import { BanAmount } from "./banamount";
 
 export {
-  Tier1RoleCommand,
-  Tier2RoleCommand,
+  TierManager,
   AltCheckCommand,
   InfoCommand,
   LofiCommand,
