@@ -2,7 +2,7 @@ import { EmbedBuilder } from '@discordjs/builders';
 import { ActivityType, Client, GatewayIntentBits } from 'discord.js'
 import dotenv from 'dotenv';
 import mysql from 'mysql2'
-import { AddNoteCommand, AltCheckCommand, AvatarCommand, BanAmount, BlacklistCommand, DelNoteCommand, InfoCommand, LofiCommand, NoaddCheckCommand, NotesCommand, PollCommand, Tier1RoleCommand, Tier2RoleCommand, TimeoutCommand, UnTimeoutCommand, ValidationBlacklistCommand } from './commands/Commands';
+import { AddNoteCommand, AltCheckCommand, AvatarCommand, BanAmount, BlacklistCommand, DelNoteCommand, InfoCommand, LofiCommand, NoaddCheckCommand, NotesCommand, PollCommand, TierManager, TimeoutCommand, UnTimeoutCommand, ValidationBlacklistCommand } from './commands/Commands';
 
 dotenv.config();
 
@@ -67,11 +67,8 @@ client.on('messageCreate', (msg) => {
   const command = args.shift()?.toLowerCase();
 
   switch (command) {
-    case 't1':
-      Tier1RoleCommand(msg, args);
-      break;
-    case 't2':
-      Tier2RoleCommand(msg, args);
+    case 'tm':
+      TierManager(msg, args, client)
       break;
     case 'altcheck':
       AltCheckCommand(msg, args, client);
@@ -83,10 +80,10 @@ client.on('messageCreate', (msg) => {
       LofiCommand(msg, args, client);
       break;
     case 'bl':
-      BlacklistCommand(msg, args);
+      BlacklistCommand(msg, args, client);
       break;
     case 'vbl':
-      ValidationBlacklistCommand(msg, args);
+      ValidationBlacklistCommand(msg, args, client);
       break;
     case 'av':
       AvatarCommand(msg, args);
@@ -96,12 +93,12 @@ client.on('messageCreate', (msg) => {
       break;
     case 't': 
     case 'timeout': {
-      TimeoutCommand(msg, args)
+      TimeoutCommand(msg, args, client)
       break;
     }
     case 'ut':
     case 'untimeout': {
-      UnTimeoutCommand(msg, args)
+      UnTimeoutCommand(msg, args, client)
       break;
     }
     case 'poll':
