@@ -67,7 +67,7 @@ client.on('messageCreate', (msg) => {
   const command = args.shift()?.toLowerCase();
 
   switch (command) {
-    case 't':
+    case 'tm':
       TierManager(msg, args, client)
       break;
     case 'altcheck':
@@ -80,10 +80,10 @@ client.on('messageCreate', (msg) => {
       LofiCommand(msg, args, client);
       break;
     case 'bl':
-      BlacklistCommand(msg, args);
+      BlacklistCommand(msg, args, client);
       break;
     case 'vbl':
-      ValidationBlacklistCommand(msg, args);
+      ValidationBlacklistCommand(msg, args, client);
       break;
     case 'av':
       AvatarCommand(msg, args);
@@ -93,12 +93,12 @@ client.on('messageCreate', (msg) => {
       break;
     case 't': 
     case 'timeout': {
-      TimeoutCommand(msg, args)
+      TimeoutCommand(msg, args, client)
       break;
     }
     case 'ut':
     case 'untimeout': {
-      UnTimeoutCommand(msg, args)
+      UnTimeoutCommand(msg, args, client)
       break;
     }
     case 'poll':

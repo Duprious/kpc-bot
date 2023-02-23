@@ -1,7 +1,8 @@
-import { Client, Embed, EmbedBuilder, GuildMember, Message } from "discord.js";
+import { Client, Embed, EmbedBuilder, GuildMember, Message, TextChannel } from "discord.js";
 
 export const TierManager = async (msg: Message, args: string[], client: Client) => {
 
+  const rolelogchannel = client.channels.cache.get('1078367077498359838') as TextChannel //kpc: 801549134233600031
   const tier1role = msg.guild?.roles.cache.find((role) => role.id === '1062782818725417093')
   const tier2role = msg.guild?.roles.cache.find((role) => role.id === '1062784079499632640')
   let player: GuildMember | undefined;
@@ -34,14 +35,50 @@ export const TierManager = async (msg: Message, args: string[], client: Client) 
   if (!tier1role || !tier2role) return msg.channel.send({ embeds: [norole] })
   if (!member) return msg.channel.send({ embeds: [nomember] })
 
+  
+
 
   const tier1 = async () => {
     if (member.roles.cache.has(tier1role?.id)) {
       member.roles.remove(tier1role)
-      msg.channel.send(`Removed **${tier1role.name}** from **${player?.user.username}**`)
+
+      let doneembed = new EmbedBuilder()
+        .setTitle('Successfully done!')
+        .setDescription(`Removed **${tier1role.name}** from **${player?.user.username}**`)
+        .setColor("Green")
+        .setTimestamp()
+
+      let logembed = new EmbedBuilder()
+        .setTitle('Tier 1 command from Tier Manager has been ran')
+        .addFields(
+          { name: 'Moderator', value: `${msg.author}`, inline: true },
+        )
+        .setAuthor({ name: `User: ${player?.user.username}`, iconURL: player?.displayAvatarURL() })
+        .setColor("Green")
+        .setTimestamp()
+
+      msg.channel.send({ embeds: [doneembed] })
+      rolelogchannel.send({ embeds: [logembed] })
     } else {
       member.roles.add(tier1role)
-      msg.channel.send(`Added **${tier1role.name}** to **${player?.user.username}**`)
+
+      let doneembed2 = new EmbedBuilder()
+        .setTitle('Successfully done!')
+        .setDescription(`Added **${tier1role.name}** to **${player?.user.username}**`)
+        .setColor("Green")
+        .setTimestamp()
+
+      let logembed2 = new EmbedBuilder()
+        .setTitle('Tier 1 command from Tier Manager has been ran')
+        .addFields(
+          { name: 'Moderator', value: `${msg.author}`, inline: true },
+        )
+        .setAuthor({ name: `User: ${player?.user.username}`, iconURL: player?.displayAvatarURL() })
+        .setColor("Green")
+        .setTimestamp()
+
+      msg.channel.send({ embeds: [doneembed2] })
+      rolelogchannel.send({ embeds: [logembed2] })
       return
     }
   }
@@ -50,10 +87,45 @@ export const TierManager = async (msg: Message, args: string[], client: Client) 
   const tier2 = async () => {
     if (member.roles.cache.has(tier2role?.id)) {
       member.roles.remove(tier2role)
-      msg.channel.send(`Removed **${tier2role.name}** from **${player?.user.username}**`)
+
+      let doneembed = new EmbedBuilder()
+        .setTitle('Successfully done!')
+        .setDescription(`Removed **${tier2role.name}** from **${player?.user.username}**`)
+        .setColor("Green")
+        .setTimestamp()
+
+      let logembed = new EmbedBuilder()
+        .setTitle('Tier 2 command from Tier Manager has been ran')
+        .addFields(
+          { name: 'Moderator', value: `${msg.author}`, inline: true },
+        )
+        .setAuthor({ name: `User: ${player?.user.username}`, iconURL: player?.displayAvatarURL() })
+        .setColor("Green")
+        .setTimestamp()
+
+      msg.channel.send({ embeds: [doneembed] })
+      rolelogchannel.send({ embeds: [logembed] })
     } else {
       member.roles.add(tier2role)
-      msg.channel.send(`Added **${tier2role.name}** to **${player?.user.username}**`)
+
+      let doneembed2 = new EmbedBuilder()
+        .setTitle('Successfully done!')
+        .setDescription(`Removed **${tier2role.name}** from **${player?.user.username}**`)
+        .setColor("Green")
+        .setTimestamp()
+
+      let logembed2 = new EmbedBuilder()
+        .setTitle('Tier 2 command from Tier Manager has been ran')
+        .addFields(
+          { name: 'Moderator', value: `${msg.author}`, inline: true },
+        )
+        .setAuthor({ name: `User: ${player?.user.username}`, iconURL: player?.displayAvatarURL() })
+        .setColor("Green")
+        .setTimestamp()
+
+      
+      msg.channel.send({ embeds: [doneembed2] })
+      rolelogchannel.send({ embeds: [logembed2] })
       return
     }
   }
@@ -70,12 +142,22 @@ export const TierManager = async (msg: Message, args: string[], client: Client) 
     } else if (member.roles.cache.has(tier2role?.id)) {
       member.roles.add(tier1role)
       member.roles.remove(tier2role)
-      let promoteddone = new EmbedBuilder()
+      let doneembed = new EmbedBuilder()
         .setTitle('Successfully Done!')
         .setDescription(`**${player?.user.username}** has been promoted to **${tier1role.name}**`)
         .setColor('Green')
         .setTimestamp()
-      msg.channel.send({ embeds: [promoteddone] })
+
+      let logembed = new EmbedBuilder()
+        .setTitle('Promote command from Tier Manager has been ran')
+        .addFields(
+          { name: 'Moderator', value: `${msg.author}`, inline: true },
+        )
+        .setAuthor({ name: `User: ${player?.user.username}`, iconURL: player?.displayAvatarURL() })
+        .setColor("Green")
+        .setTimestamp()
+      msg.channel.send({ embeds: [doneembed] })
+      rolelogchannel.send({ embeds: [logembed] })
     }
   }
 
@@ -89,14 +171,24 @@ export const TierManager = async (msg: Message, args: string[], client: Client) 
       return msg.channel.send({ embeds: [alrhasroleembed1] })
   } else if (member.roles.cache.has(tier1role?.id)) {
 
-    let demoteddone = new EmbedBuilder()
+    let doneembed = new EmbedBuilder()
       .setTitle('Successfully Done!')
       .setDescription(`**${player?.user.username}** has been demoted to **${tier2role.name}**`)
       .setColor('Green')
       .setTimestamp()
+
+      let logembed = new EmbedBuilder()
+        .setTitle('Demote command from Tier Manager has been ran')
+        .addFields(
+          { name: 'Moderator', value: `${msg.author}`, inline: true },
+        )
+        .setAuthor({ name: `User: ${player?.user.username}`, iconURL: player?.displayAvatarURL() })
+        .setColor("Green")
+        .setTimestamp()
     member.roles.remove(tier1role)
     member.roles.add(tier2role)
-    msg.channel.send({ embeds: [demoteddone]})
+    msg.channel.send({ embeds: [doneembed] })
+    rolelogchannel.send({ embeds: [logembed] })
   }
 }
 
